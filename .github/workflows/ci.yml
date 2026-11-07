@@ -10,7 +10,7 @@ permissions:
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   frontend:
@@ -26,7 +26,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
           cache-dependency-path: frontend/package-lock.json
 
@@ -45,7 +45,37 @@ jobs:
       - name: Production build
         run: npm run build
         env:
-          API_ORIGIN: https://api.example.invalid
+          API_ORIGIN: https://api.sakhizadacarpet.com
+
+      - name: Stage the standalone app for cPanel
+        if: >-
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+          github.ref == 'refs/heads/main' &&
+          vars.CPANEL_DEPLOY_ENABLED == 'true'
+        run: |
+          mkdir -p .next/standalone/.next/static .next/standalone/tmp
+          cp -a .next/static/. .next/standalone/.next/static/
+          if [ -d public ]; then
+            mkdir -p .next/standalone/public
+            cp -a public/. .next/standalone/public/
+          fi
+          date -u +%s > .next/standalone/tmp/restart.txt
+          if find .next/standalone -type f \( -name '.env' -o -name '.env.*' -o -name 'carpet_sales.sql' \) -print -quit | grep -q .; then
+            echo 'Refusing to package an environment file or database dump.' >&2
+            exit 1
+          fi
+
+      - name: Upload cPanel frontend bundle
+        if: >-
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+          github.ref == 'refs/heads/main' &&
+          vars.CPANEL_DEPLOY_ENABLED == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: csms-frontend
+          path: frontend/.next/standalone/
+          if-no-files-found: error
+          retention-days: 1
 
   backend:
     name: Laravel checks
@@ -80,14 +110,14 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.2'
           extensions: bcmath, ctype, curl, dom, fileinfo, intl, mbstring, pdo_mysql, tokenizer, xml, zip
           coverage: none
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
           cache-dependency-path: backend/package-lock.json
 
@@ -112,3 +142,113 @@ jobs:
 
       - name: Run API tests
         run: php artisan test --compact
+
+      - name: Install production PHP dependencies
+        if: >-
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+          github.ref == 'refs/heads/main' &&
+          vars.CPANEL_DEPLOY_ENABLED == 'true'
+        run: composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader
+
+      - name: Stage Laravel API for cPanel
+        if: >-
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+          github.ref == 'refs/heads/main' &&
+          vars.CPANEL_DEPLOY_ENABLED == 'true'
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/deploy-artifacts/backend"
+          rsync -a \
+            --exclude='.env' \
+            --exclude='.env.*' \
+            --exclude='node_modules/' \
+            --exclude='tests/' \
+            --exclude='database/*.sql' \
+            --exclude='database/*.sqlite*' \
+            --exclude='storage/**' \
+            --exclude='public/storage/' \
+            ./ "$GITHUB_WORKSPACE/deploy-artifacts/backend/"
+          if find "$GITHUB_WORKSPACE/deploy-artifacts/backend" -type f \( -name '.env' -o -name '.env.*' -o -name '*.sql' -o -name '*.sqlite' -o -name '*.sqlite3' \) -print -quit | grep -q .; then
+            echo 'Refusing to package an environment file or database dump.' >&2
+            exit 1
+          fi
+
+      - name: Upload cPanel API bundle
+        if: >-
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+          github.ref == 'refs/heads/main' &&
+          vars.CPANEL_DEPLOY_ENABLED == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: csms-backend
+          path: deploy-artifacts/backend/
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy:
+    name: Deploy to cPanel
+    needs: [frontend, backend]
+    if: >-
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+      github.ref == 'refs/heads/main' &&
+      vars.CPANEL_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download frontend bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: csms-frontend
+          path: deploy-artifacts/frontend/
+
+      - name: Download API bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: csms-backend
+          path: deploy-artifacts/backend/
+
+      - name: Deploy Laravel API over FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.CPANEL_FTP_SERVER }}
+          username: ${{ secrets.CPANEL_FTP_USERNAME }}
+          password: ${{ secrets.CPANEL_FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: deploy-artifacts/backend/
+          server-dir: backend/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.env
+            **/.env.*
+            **/storage/**
+            **/public/storage/**
+            **/*.sql
+            **/*.sqlite
+            **/*.sqlite3
+          dangerous-clean-slate: false
+
+      - name: Deploy Next.js app over FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.CPANEL_FTP_SERVER }}
+          username: ${{ secrets.CPANEL_FTP_USERNAME }}
+          password: ${{ secrets.CPANEL_FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: deploy-artifacts/frontend/
+          server-dir: frontend/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.env
+            **/.env.*
+            **/*.sql
+          dangerous-clean-slate: false
+
+      - name: Verify live API health
+        run: curl --fail --silent --show-error --retry 12 --retry-delay 5 https://api.sakhizadacarpet.com/api/health
+
+      - name: Verify live app response
+        run: curl --fail --silent --show-error --retry 12 --retry-delay 5 --output /dev/null https://app.sakhizadacarpet.com/
