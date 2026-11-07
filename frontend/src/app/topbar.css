@@ -1,0 +1,157 @@
+/* Account menu layout and one language control across every screen. */
+.topbar-spacer {
+  flex: 1;
+  min-width: 0;
+}
+
+.language-dropdown {
+  position: relative;
+  flex-shrink: 0;
+  width: 132px;
+  border: 1px solid #203d5426;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f8f6f1, #eeeae2);
+  color: var(--navy);
+  box-shadow: inset 0 1px 0 #ffffffb3;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.language-dropdown:hover {
+  border-color: #203d5466;
+}
+
+.language-dropdown:focus-within {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px #203d5417;
+}
+
+.language-select {
+  display: block;
+  appearance: none;
+  width: 100%;
+  height: 34px;
+  padding-block: 0;
+  padding-inline: 36px 28px;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.language-select:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 2px;
+}
+
+.language-select:disabled {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+.language-select option {
+  background: #f8f6f1;
+  color: var(--ink);
+}
+
+.language-globe,
+.language-chevron {
+  position: absolute;
+  inset-block: 0;
+  margin-block: auto;
+  pointer-events: none;
+}
+
+.language-globe {
+  inset-inline-start: 12px;
+  width: 15px;
+  height: 15px;
+  opacity: 0.8;
+}
+
+.language-chevron {
+  inset-inline-end: 11px;
+  width: 10px;
+  height: 10px;
+  opacity: 0.65;
+}
+
+.topbar .profile-popover {
+  width: 320px;
+  min-width: 0;
+  max-width: calc(100vw - 32px);
+  padding: 18px;
+  gap: 6px;
+  overflow-wrap: anywhere;
+}
+
+.topbar .profile-popover > span,
+.topbar .profile-popover > p {
+  color: #647584;
+  line-height: 1.55;
+}
+
+.topbar .profile-popover > strong {
+  font-size: 1.125rem;
+}
+
+.topbar .profile-popover > span {
+  font-size: 0.8125rem;
+}
+
+.topbar .profile-popover > p {
+  font-size: 0.75rem;
+}
+
+.topbar .profile-popover > button {
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: start;
+  border-radius: 6px;
+}
+
+.topbar .profile-popover > button:hover {
+  background: #f1efeb;
+}
+
+.topbar .profile-popover > button svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 600px) {
+  .language-dropdown {
+    width: 96px;
+  }
+
+  .language-select {
+    height: 36px;
+    padding-inline: 10px 24px;
+  }
+
+  .language-globe {
+    display: none;
+  }
+
+  .topbar .profile-popover {
+    position: fixed;
+    inset-block-start: 64px;
+    inset-inline: 12px;
+    width: auto;
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .language-dropdown {
+    transition: none;
+  }
+}

@@ -1,0 +1,53 @@
+import { foundationText } from "./foundation-i18n";
+import { inventoryText } from "./inventory-i18n";
+
+const fa: Record<string, string> = {
+  Purchase: "خرید",
+  "The partner owes the company. This receipt increases the selected account balance.": "شریک به شرکت بدهکار است. این دریافت، مانده حساب انتخاب‌شده را افزایش می‌دهد.",
+  Seller: "فروشنده",
+  "Proceeds sharing leaves costs with the party that contributed them. Loss percentages apply to the cost-recovery model.": "در تقسیم عواید، هزینه هر طرف به عهده خودش است. درصد زیان در مدل بازگشت هزینه‌ها تطبیق می‌شود.",
+  "Weaver activity": "فعالیت‌های بافنده",
+  "Payments and refunds": "پرداخت‌ها و بازپرداخت‌ها",
+  "Weaver payment": "پرداخت به بافنده",
+  "Weaver refund": "بازپرداخت بافنده",
+  "Partnership support": "مساعدت شراکت",
+  "Production labor / advance": "اجرت یا پیش‌پرداخت تولید",
+  "Partnership settlement": "تصفیه شراکت",
+  "Settlement payments recorded": "پرداخت‌های تصفیه ثبت‌شده",
+  "Remaining settlement balance": "مانده تصفیه",
+  "Paid labor / advances": "اجرت و پیش‌پرداخت‌های پرداخت‌شده",
+  "Labor balance (negative means advance)": "مانده اجرت (منفی یعنی پیش‌پرداخت)",
+  "Carpet purchases": "خرید قالین", "Purchase & receive": "خرید و دریافت موجودی", "Expense records": "ثبت مصارف", "Record expense": "ثبت مصرف", Expenses: "مصارف",
+  Materials: "مواد اولیه", "Add material": "افزودن مواد", "Material receipts": "دریافت مواد", "Receive materials": "دریافت مواد اولیه", "Production orders": "سفارش‌های تولید",
+  "Create production order": "ایجاد سفارش تولید", Partnerships: "شراکت‌ها", "Create partnership": "ایجاد شراکت", "Sales invoices": "بل‌های فروش", "Sell carpets": "فروش قالین",
+  "Supplier payments": "پرداخت‌های عرضه‌کننده", "Customer receipts": "دریافت‌های مشتری", "Weaver records": "فهرست بافندگان", "Supplier records": "فهرست عرضه‌کنندگان", Production: "تولید", Sales: "فروش",
+  "Seller type": "نوع فروشنده", weaver: "بافنده", supplier: "عرضه‌کننده", "Destination stock location": "محل دریافت موجودی", "Seller invoice number (optional)": "شماره بل فروشنده (اختیاری)",
+  "Pay now": "پرداخت اکنون", "Collect now": "دریافت اکنون", "Pay later": "پرداخت بعداً", "Payment details": "جزئیات پرداخت", "Payment rate to base": "نرخ تبدیل پرداخت به ارز پایه",
+  "Document units per payment unit": "واحد ارز سند به ازای یک واحد ارز پرداخت", "Expense amount": "مبلغ مصرف", "Invoice number (optional)": "شماره بل (اختیاری)", Payee: "دریافت‌کننده", "Expense category": "دسته‌بندی مصرف",
+  "Material lot": "بسته مواد", "Cost per unit": "قیمت هر واحد", "Movement type": "نوع حرکت", "Movement date": "تاریخ حرکت", "Start date": "تاریخ شروع", "Expected completion date": "تاریخ تکمیل مورد انتظار",
+  "Sharing basis": "مبنای تقسیم", gross: "تقسیم عواید فروش", net_cost_recovery: "بازگشت هزینه‌ها و تقسیم سود", "Company profit / proceeds share (%)": "سهم شرکت از سود یا عواید (٪)", "Company loss share (%)": "سهم شرکت از زیان (٪)",
+  "Ownership, contributions and agreement terms": "مالکیت، سهم‌گیری و شرایط توافق", "Payment due date": "تاریخ سررسید پرداخت", "Search records": "جستجوی اسناد", "Select carpets": "انتخاب قالین‌ها", "Selected carpets": "قالین‌های انتخاب‌شده",
+  "Find a carpet": "جستجوی قالین", "Cost weight": "وزن تقسیم هزینه", Discount: "تخفیف", "Save changes": "ذخیره تغییرات", "Saved successfully.": "با موفقیت ذخیره شد.",
+  "Warehouse quantity": "مقدار در گدام", "Unpaid balance": "مانده پرداخت‌نشده", "View details": "مشاهده جزئیات", "Move materials": "انتقال مواد", "Update progress": "به‌روزرسانی پیشرفت", "Record labor earned": "ثبت اجرت انجام‌شده",
+  "Record partner contribution": "ثبت سهم شریک", "Receive finished carpets": "دریافت قالین‌های تکمیل‌شده", "Void expense": "باطل کردن مصرف", "Finalize partnership settlement": "نهایی کردن تصفیه شراکت", "Pay / recover partnership balance": "پرداخت یا دریافت مانده شراکت",
+  "Progress date": "تاریخ پیشرفت", "Completion percent": "درصد تکمیل", "Progress notes": "جزئیات پیشرفت", "Labor earned date": "تاریخ انجام کار", "Labor earned": "اجرت انجام‌شده", "Contribution date": "تاریخ سهم‌گیری", "Partner contribution": "سهم شریک",
+  "Settlement date": "تاریخ تصفیه", issue: "تحویل به بافنده", consume: "مصرف در تولید", return: "بازگشت به گدام", waste: "ضایعات", labor: "پرداخت اجرت", advance: "پیش‌پرداخت اجرت", support: "مساعدت قابل تصفیه",
+  planned: "برنامه‌ریزی‌شده", materials_issued: "مواد تحویل داده شده", weaving: "در حال بافت", completed: "تکمیل‌شده", received: "دریافت‌شده", recorded: "ثبت‌شده", overdue: "سررسید گذشته", unpaid: "پرداخت‌نشده", paid: "پرداخت‌شده", void: "باطل‌شده",
+  "Company-funded production": "تولید با تمویل شرکت", "Profit-sharing partnership": "شراکت در سود", "Buy & resell": "خرید و فروش مجدد", "Material movements": "حرکات مواد", "Labor charges": "اجرت‌های ثبت‌شده", "Partner contributions": "سهم‌گیری‌های شریک", "Progress history": "تاریخچه پیشرفت",
+  "Settlement preview": "پیش‌نمایش تصفیه", "Final settlement": "تصفیه نهایی", "Revenue (base currency)": "عواید به ارز پایه", "Company costs (base currency)": "هزینه‌های شرکت به ارز پایه", "Partner costs (base currency)": "هزینه‌های شریک به ارز پایه",
+  "Company entitlement": "حق شرکت", "Partner entitlement": "حق شریک", "Support already paid": "مساعدت پرداخت‌شده", "Partner balance due": "مانده حساب شریک", "Ready for settlement": "آماده تصفیه", "Waiting for receiving, sales and full customer collection": "در انتظار دریافت قالین‌ها، فروش و دریافت کامل پول مشتری",
+  "A negative partner balance is money the partner must return.": "مانده منفی شریک پولی است که شریک باید برگرداند.", "Partner support is an advance against settlement, not an expense.": "مساعدت شریک پیش‌پرداخت برای تصفیه است و مصرف حساب نمی‌شود.",
+  "Receipt attachments": "ضمیمه‌های رسید", "Upload receipt": "بارگذاری رسید", "Download": "دانلود", "Discard unsaved changes?": "تغییرات ذخیره‌نشده کنار گذاشته شوند؟", "Keep editing": "ادامه ویرایش", "Discard": "کنار گذاشتن",
+  "Choose a valid option.": "گزینه معتبر انتخاب کنید.", "Enter a positive amount.": "مبلغ بیشتر از صفر وارد کنید.", "Enter a positive exchange rate.": "نرخ تبدیل مثبت وارد کنید.", "Enter a valid date.": "تاریخ معتبر وارد کنید.", "Use a percentage from 0 to 100.": "درصدی بین صفر تا صد وارد کنید.",
+  "Enter a positive quantity with up to 3 decimals.": "مقدار مثبت با حداکثر سه رقم اعشار وارد کنید.", "Select 1 to 50 different carpets.": "یک تا پنجاه قالین متفاوت انتخاب کنید.", "Enter a positive cost weight.": "وزن مثبت برای تقسیم هزینه وارد کنید.", "Discount must be smaller than the price.": "تخفیف باید کمتر از قیمت باشد.",
+  "The due date cannot precede the start date.": "تاریخ سررسید نمی‌تواند پیش از شروع باشد.", "Describe the agreement in at least 10 characters.": "شرایط توافق را حداقل با ده حرف توضیح دهید.", "Purchase and receiving are saved together. Only received carpets become available stock.": "خرید و دریافت هم‌زمان ذخیره می‌شوند. فقط قالین‌های دریافت‌شده به موجودی قابل فروش تبدیل می‌شوند.",
+  "Equal weights split production cost equally; use different weights for different carpet sizes or agreed cost shares.": "وزن‌های برابر هزینه تولید را مساوی تقسیم می‌کنند؛ برای قالین‌های متفاوت وزن مناسب وارد کنید.",
+  "Record rent, utilities and other operating costs here. Carpet purchases, materials and washing costs stay in their own workflows.": "کرایه، برق و دیگر مصارف عملیاتی را اینجا ثبت کنید. خرید قالین، مواد و هزینه شستشو در بخش‌های مربوط ثبت می‌شوند.",
+  "Issue materials, record consumption or returns, track progress, then receive the finished carpets.": "مواد را تحویل دهید، مصرف یا بازگشت را ثبت کنید، پیشرفت را دنبال و قالین‌های تکمیل‌شده را دریافت کنید.",
+  "All amounts in the settlement are in the company base currency. Settlement requires all carpets sold and customer balances collected.": "تمام مبالغ تصفیه به ارز پایه شرکت است. برای تصفیه باید همه قالین‌ها فروخته و پول مشتریان کامل دریافت شود.",
+  "No eligible carpets. Register carpets first, or choose the correct branch.": "قالین واجد شرایط وجود ندارد. نخست قالین ثبت کنید یا شعبه درست را انتخاب کنید.",
+};
+export function businessText(locale: string, text: string): string {
+  const english: Record<string, string> = { planned: "Planned", materials_issued: "Materials issued", weaving: "Weaving", completed: "Completed", received: "Received", recorded: "Recorded", overdue: "Overdue", unpaid: "Unpaid", paid: "Paid", gross: "Share sale proceeds", net_cost_recovery: "Recover costs, then share profit", issue: "Issue to weaver", consume: "Consume in production", return: "Return to warehouse", waste: "Record waste", labor: "Labor payment", advance: "Labor advance", support: "Support against settlement", weaver: "Weaver", supplier: "Supplier" };
+  return locale === "fa" ? fa[text] ?? inventoryText(locale, foundationText(locale, text)) : english[text] ?? inventoryText(locale, text);
+}

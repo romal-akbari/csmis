@@ -1,0 +1,35 @@
+# Local environment files and credentials
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.*.example
+**/auth.json
+
+# Installed dependencies
+**/node_modules/
+**/vendor/
+
+# Next.js and local test output
+frontend/.next*/
+frontend/out/
+frontend/test-results/
+frontend/playwright-report/
+frontend/reset-playwright-report/
+frontend/coverage/
+frontend/.verification/
+frontend/*.tsbuildinfo
+
+# Laravel runtime files and generated assets
+backend/public/build/
+backend/public/hot
+backend/public/storage
+backend/storage/**
+!backend/storage/**/.gitignore
+backend/bootstrap/cache/**
+!backend/bootstrap/cache/.gitignore
+backend/database/*.sqlite
+backend/database/*.sqlite3
+
+# Local workspace output
+output/
+tmp/

@@ -1,0 +1,799 @@
+/* -------------------------------------------------------------------------
+   Customers module (§4) — all selectors prefixed with .customers- so they
+   never collide with the reference dashboard styles.
+   ------------------------------------------------------------------------- */
+
+.customers-screen {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.customers-screen .customers-eyebrow {
+  font-size: 11px;
+}
+
+.customers-screen h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-block: 2px;
+}
+
+.customers-screen .customers-muted {
+  font-size: 13px;
+}
+
+.customers-screen .primary-button,
+.customers-screen .secondary-button {
+  min-height: 40px;
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
+.customers-screen .customers-banner {
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.customers-eyebrow {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #8b97a2;
+}
+
+.customers-login h1 {
+  font-size: 1.375rem;
+  color: var(--navy, #162946);
+  margin-top: 0.125rem;
+}
+
+.customers-muted {
+  color: var(--muted, #6f8192);
+  font-size: 0.8125rem;
+}
+
+.customers-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.customers-head-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.customers-banner {
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  margin-bottom: 0.75rem;
+}
+
+.customers-banner.error {
+  background: #f9e2e2;
+  color: #8d3b3b;
+}
+
+.customers-banner.flash {
+  background: #dcefe1;
+  color: #257446;
+}
+
+/* Toolbar ------------------------------------------------------------- */
+
+.customers-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 12px;
+  min-width: 0;
+}
+
+.customers-search {
+  display: flex;
+  flex: 3 1 280px;
+  gap: 6px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.customers-filters input,
+.customers-filters select {
+  min-width: 0;
+  max-width: 100%;
+  min-height: 40px;
+  border: 1px solid #d7d8d1;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 14px;
+  background: #fff;
+  color: #162946;
+}
+
+.customers-filters input {
+  flex: 1;
+  width: 0;
+}
+
+.customers-filters > select {
+  flex: 1 1 136px;
+}
+
+.customers-filters > select:last-of-type {
+  flex-basis: 176px;
+}
+
+.customers-filters > button,
+.customers-search > button {
+  flex-shrink: 0;
+  min-height: 40px;
+}
+
+.customers-action {
+  border: 0.0625rem solid #d7d8d1;
+  border-radius: 0.375rem;
+  background: #f2f1eb;
+  color: #35485a;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.customers-action:hover:not(:disabled) {
+  background: #e7e6de;
+}
+
+.customers-action:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.customers-action.danger {
+  background: #b03535;
+  border-color: #b03535;
+  color: #fff;
+}
+
+/* Table --------------------------------------------------------------- */
+
+.customers-panel {
+  min-width: 0;
+  border: 0.0625rem solid #e3e2db;
+  border-radius: 0.625rem;
+  background: #fff;
+  overflow: hidden;
+}
+
+.customers-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.customers-table {
+  width: 100%;
+  min-width: 740px;
+  border-collapse: collapse;
+  font-size: var(--data-table-font-size);
+  white-space: normal;
+}
+
+.customers-table th {
+  text-align: start;
+  padding: 10px 12px;
+  background: #f4f3ee;
+  color: #5b6a77;
+  font-size: var(--data-table-font-size);
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 0.0625rem solid #e3e2db;
+}
+
+.customers-table td {
+  padding: 10px 12px;
+  vertical-align: middle;
+  border-bottom: 0.0625rem solid #efeee8;
+  color: #1d2b39;
+}
+
+.customers-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.customers-name {
+  width: 28%;
+  min-width: 160px;
+  overflow-wrap: anywhere;
+  font-weight: 600;
+}
+
+.customers-table td[dir="ltr"] {
+  white-space: nowrap;
+}
+
+.customers-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 160px;
+}
+
+.customers-screen[lang="fa"] .customers-table th {
+  letter-spacing: normal;
+}
+
+/* Keep row buttons at a comfortable, clickable size inside table cells. */
+.customers-actions .customers-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  line-height: 1.2;
+  font-size: inherit;
+}
+
+.customers-loading {
+  padding: 24px;
+  text-align: center;
+  color: var(--muted, #6f8192);
+  font-size: 14px;
+}
+
+.customers-panel .empty-table {
+  height: auto;
+  padding: 24px;
+  font-size: var(--data-table-font-size);
+}
+
+/* Badges -------------------------------------------------------------- */
+
+.customers-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 1rem;
+  font-size: var(--data-table-font-size);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.customers-badge.type-retail {
+  background: #e8eef5;
+  color: #2c5d84;
+}
+
+.customers-badge.type-wholesale {
+  background: #efe8f6;
+  color: #5d3f86;
+}
+
+.customers-badge.type-vip {
+  background: #f9e9ce;
+  color: #a06428;
+}
+
+.customers-badge.type-other {
+  background: #eceae2;
+  color: #6b6a5f;
+}
+
+.customers-badge.flag-active {
+  background: #dcefe1;
+  color: #257446;
+}
+
+.customers-badge.flag-inactive {
+  background: #f3e3e3;
+  color: #8d3b3b;
+}
+
+/* Pager --------------------------------------------------------------- */
+
+.customers-pager {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted, #6f8192);
+}
+
+/* Form dialog --------------------------------------------------------- */
+
+.customers-form {
+  width: min(680px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
+  min-width: 0;
+  margin: auto;
+  max-height: calc(100dvh - 24px);
+  overflow: hidden;
+  background: #fcfbf7;
+  color: var(--ink);
+  border: 1px solid #d7d8d1;
+  border-radius: 14px;
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 25%);
+  padding: 0;
+  font-size: 14px;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.customers-form::backdrop {
+  background: rgb(19 44 67 / 42%);
+  backdrop-filter: blur(3px);
+  opacity: 1;
+  transition: opacity 280ms ease;
+}
+
+/* Entry styles also let a quick dismissal reverse smoothly mid-transition. */
+@starting-style {
+  .customers-form[open] {
+    opacity: 0;
+    transform: translateY(16px) scale(0.985);
+  }
+
+  .customers-form[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+.customers-form[data-state="closing"] {
+  opacity: 0;
+  transform: translateY(8px) scale(0.99);
+  transition-duration: 200ms;
+  transition-timing-function: ease-in;
+}
+
+.customers-form[data-state="closing"]::backdrop {
+  opacity: 0;
+  transition-duration: 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .customers-form,
+  .customers-form::backdrop {
+    transition: none;
+    transform: none;
+  }
+}
+
+.customers-form-content {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 26px);
+}
+
+.customers-form-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e3e2db;
+}
+
+.customers-form-head h2 {
+  font-size: 20px;
+  color: var(--navy, #162946);
+}
+
+.customers-modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--navy);
+  transition: background-color 180ms ease;
+}
+
+.customers-modal-close svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.8;
+}
+
+.customers-modal-close:hover:not(:disabled) {
+  background: #e8e4db;
+}
+
+.customers-modal-close:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.customers-form-body {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px 20px;
+}
+
+.customers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.customers-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.customers-field.full {
+  grid-column: 1 / -1;
+}
+
+.customers-field > span {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6f8192;
+}
+
+.customers-field input,
+.customers-field select,
+.customers-field textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  border: 1px solid #d7d8d1;
+  border-radius: 6px;
+  padding: 9px 10px;
+  font: inherit;
+  font-size: 16px;
+  background: #fff;
+  color: #162946;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.customers-field input:focus,
+.customers-field select:focus,
+.customers-field textarea:focus {
+  outline: none;
+  border-color: #2d6987;
+  box-shadow: 0 0 0 0.125rem rgb(45 105 135 / 25%);
+}
+
+.customers-field-error {
+  font-style: normal;
+  font-size: 12px;
+  color: #b03535;
+}
+
+.customers-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  padding: 14px 20px;
+  border-top: 1px solid #e3e2db;
+}
+
+/* Login gate ---------------------------------------------------------- */
+
+.customers-login {
+  width: 100%;
+  max-width: 34rem;
+  min-height: 30rem;
+  margin: 2.5rem auto;
+  background: #fff;
+  border: 0.0625rem solid #e3e2db;
+  border-radius: 0.75rem;
+  padding: 3.25rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.customers-login h1 {
+  font-size: 2rem;
+  margin-bottom: 0.375rem;
+}
+
+.customers-login .customers-eyebrow {
+  font-size: 0.75rem;
+}
+
+.customers-login .customers-muted {
+  font-size: 1rem;
+}
+
+.customers-login form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.customers-login .customers-field {
+  gap: 0.375rem;
+}
+
+.customers-login .customers-field > span {
+  font-size: 0.875rem;
+}
+
+.customers-login .customers-field input {
+  min-height: 3.25rem;
+  padding: 0.75rem 0.875rem;
+  font-size: 1.125rem;
+  border-radius: 0.5rem;
+}
+
+.customers-login .primary-button {
+  width: 100%;
+  min-height: 3.25rem;
+  font-size: 1.0625rem;
+}
+
+/* Full-screen auth gate (login / session check) ---------------------- */
+
+.auth-gate {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem 1rem;
+  background: #f5f4ee;
+}
+
+.auth-gate .customers-login {
+  margin: 0;
+}
+
+.auth-gate .customers-banner,
+.auth-gate .customers-muted {
+  text-align: center;
+}
+
+.auth-gate .secondary-button {
+  min-width: 10rem;
+}
+
+/* Narrow screens ------------------------------------------------------ */
+
+@media (max-width: 640px) {
+  .customers-screen {
+    padding: 12px;
+  }
+
+  .customers-head-actions {
+    width: 100%;
+  }
+
+  .customers-head-actions > button {
+    flex: 1;
+  }
+
+  .customers-search {
+    flex-basis: 100%;
+  }
+
+  .customers-filters input,
+  .customers-filters select {
+    font-size: 16px;
+  }
+
+  .customers-form-head,
+  .customers-form-body,
+  .customers-form-actions {
+    padding: 16px;
+  }
+
+  .customers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .customers-filters input {
+    min-width: 0;
+  }
+}
+
+/* Dashboard-only dark surfaces; the login and auth gate keep their palette. */
+html[data-theme="dark"] .customers-screen,
+html[data-theme="dark"] .customers-form {
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .customers-screen h1,
+html[data-theme="dark"] .customers-form-head h2 {
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .customers-screen .customers-eyebrow,
+html[data-theme="dark"] .customers-screen .customers-muted,
+html[data-theme="dark"] .customers-screen .customers-loading,
+html[data-theme="dark"] .customers-screen .customers-pager,
+html[data-theme="dark"] .customers-form .customers-muted,
+html[data-theme="dark"] .customers-form .customers-field > span {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .customers-screen .customers-banner.error,
+html[data-theme="dark"] .customers-form .customers-banner.error {
+  background: var(--danger-surface);
+  color: var(--danger-text);
+}
+
+html[data-theme="dark"] .customers-screen .customers-banner.flash,
+html[data-theme="dark"] .customers-form .customers-banner.flash {
+  background: var(--success-surface);
+  color: var(--success-text);
+}
+
+html[data-theme="dark"] .customers-screen .customers-filters input,
+html[data-theme="dark"] .customers-screen .customers-filters select,
+html[data-theme="dark"] .customers-form .customers-field input,
+html[data-theme="dark"] .customers-form .customers-field select,
+html[data-theme="dark"] .customers-form .customers-field textarea {
+  border-color: var(--border-strong);
+  background: var(--surface-input);
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .customers-screen .customers-filters input::placeholder,
+html[data-theme="dark"] .customers-form .customers-field input::placeholder,
+html[data-theme="dark"] .customers-form .customers-field textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+html[data-theme="dark"] .customers-screen .customers-action,
+html[data-theme="dark"] .customers-screen .secondary-button,
+html[data-theme="dark"] .customers-form .secondary-button {
+  border-color: var(--border);
+  background: var(--surface-raised);
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .customers-screen .customers-action:hover:not(:disabled),
+html[data-theme="dark"] .customers-screen .secondary-button:hover:not(:disabled),
+html[data-theme="dark"] .customers-form .secondary-button:hover:not(:disabled) {
+  background: var(--surface-hover);
+}
+
+html[data-theme="dark"] .customers-screen .primary-button,
+html[data-theme="dark"] .customers-form .primary-button {
+  border-color: var(--accent-fill);
+  background: var(--accent-fill);
+  color: var(--on-accent);
+}
+
+html[data-theme="dark"] .customers-screen .primary-button:hover:not(:disabled),
+html[data-theme="dark"] .customers-form .primary-button:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent-fill), white 10%);
+}
+
+html[data-theme="dark"] .customers-screen .customers-action.danger {
+  border-color: var(--danger-border);
+  background: var(--danger-surface);
+  color: var(--danger-text);
+}
+
+html[data-theme="dark"] .customers-screen .customers-action.danger:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--danger-surface), var(--danger-text) 10%);
+}
+
+html[data-theme="dark"] .customers-screen .customers-panel {
+  border-color: var(--border);
+  background: var(--surface);
+}
+
+html[data-theme="dark"] .customers-screen .customers-table th {
+  border-bottom-color: var(--border);
+  background: var(--surface-soft);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .customers-screen .customers-table td {
+  border-bottom-color: var(--border);
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .customers-screen .customers-badge.type-retail {
+  background: var(--info-surface);
+  color: var(--accent);
+}
+
+html[data-theme="dark"] .customers-screen .customers-badge.type-wholesale {
+  background: #342b43;
+  color: #d7c1ee;
+}
+
+html[data-theme="dark"] .customers-screen .customers-badge.type-vip {
+  background: #433723;
+  color: #e6c68e;
+}
+
+html[data-theme="dark"] .customers-screen .customers-badge.type-other {
+  background: var(--surface-muted);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .customers-screen .customers-badge.flag-active {
+  background: var(--success-surface);
+  color: var(--success-text);
+}
+
+html[data-theme="dark"] .customers-screen .customers-badge.flag-inactive {
+  background: var(--danger-surface);
+  color: var(--danger-text);
+}
+
+html[data-theme="dark"] .customers-form {
+  border-color: var(--border-strong);
+  background: var(--surface-raised);
+  box-shadow: 0 1rem 3rem #00000066;
+}
+
+html[data-theme="dark"] .customers-form::backdrop {
+  background: var(--dialog-backdrop);
+}
+
+html[data-theme="dark"] .customers-form-head,
+html[data-theme="dark"] .customers-form-actions {
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .customers-form .customers-modal-close {
+  color: var(--accent);
+}
+
+html[data-theme="dark"] .customers-form .customers-modal-close:hover:not(:disabled) {
+  background: var(--surface-hover);
+}
+
+html[data-theme="dark"] .customers-form .customers-field input:focus,
+html[data-theme="dark"] .customers-form .customers-field select:focus,
+html[data-theme="dark"] .customers-form .customers-field textarea:focus {
+  border-color: var(--focus);
+  box-shadow: 0 0 0 0.125rem color-mix(in srgb, var(--focus) 25%, transparent);
+}
+
+html[data-theme="dark"] .customers-form .customers-field-error {
+  color: var(--danger-text);
+}
+
+html[data-theme="dark"] .customers-screen button:focus-visible,
+html[data-theme="dark"] .customers-screen .customers-filters :is(input, select):focus-visible,
+html[data-theme="dark"] .customers-form button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

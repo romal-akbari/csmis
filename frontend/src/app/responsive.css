@@ -1,0 +1,154 @@
+/* Native responsive layout: no CSS zoom or fixed desktop canvas.
+   The 1672 x 941 reference uses a 16px root. Desktop lengths respond together
+   to the usable viewport, including computers with Windows display scaling.
+   Below the desktop breakpoint, readable native sizes and reflow take over. */
+html {
+  /* Slightly larger desktop/tablet UI; all rem dimensions stay in sync. */
+  --dashboard-density: 1.1;
+  font-size: calc(16px * var(--dashboard-density));
+}
+@media (max-width: 800px) {
+  html {
+    --dashboard-density: 1;
+  }
+}
+@media (min-width: 1181px) {
+  html {
+    font-size: clamp(
+      9px,
+      min(
+        calc(100vw * 16 / 1672 * var(--dashboard-density)),
+        calc(100dvh * 16 / 941 * var(--dashboard-density))
+      ),
+      calc(16px * var(--dashboard-density))
+    );
+  }
+}
+.main-shell,
+.main-content,
+#dashboard-content {
+  width: auto;
+  min-width: 0;
+}
+.main-content {
+  min-height: 100dvh;
+}
+.analytics-grid {
+  grid-template-columns:
+    minmax(0, 381fr) minmax(0, 327fr) minmax(0, 315fr)
+    minmax(0, 346fr);
+}
+.details-grid {
+  grid-template-columns: minmax(0, 529fr) minmax(0, 398fr) minmax(0, 449fr);
+}
+.province-map {
+  width: min(100%, 18.375rem);
+  margin-inline: auto;
+}
+.province-map > .artwork {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 294 / 205;
+}
+.inventory-content {
+  min-width: 0;
+}
+.donut-wrap {
+  max-width: 56%;
+}
+.donut-chart {
+  width: 100%;
+  height: auto;
+}
+.panel-heading h2 {
+  min-width: 0;
+}
+@media (max-width: 1180px) {
+  .analytics-grid,
+  .details-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .panel-heading {
+    flex-wrap: wrap;
+  }
+  .navigation {
+    margin-bottom: 0;
+  }
+  .analytics-grid > .panel,
+  .details-grid > .panel {
+    height: auto;
+    min-height: 17rem;
+  }
+  .details-grid > .panel {
+    min-height: 13.625rem;
+  }
+  .inventory-content {
+    gap: clamp(0.5rem, 1vw, 1rem);
+  }
+  .inventory-legend {
+    flex: 1;
+  }
+  .inventory-legend button {
+    gap: 0.5rem;
+    font-size: 0.75rem;
+  }
+  .map-caption {
+    white-space: normal;
+  }
+}
+@media (min-width: 801px) and (max-width: 1180px) {
+  .hero-copy > p {
+    max-width: min(27rem, 90%);
+  }
+  .hero-copy h1 {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+  }
+  .stat-card {
+    gap: 0.625rem;
+  }
+}
+@media (max-width: 950px) and (min-width: 801px) {
+  .analytics-grid,
+  .details-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .inventory-content {
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  .statistics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .analytics-grid,
+  .details-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .province-map {
+    width: min(100%, 21.25rem);
+  }
+}
+@media (max-width: 1180px) and (max-height: 700px) {
+  /* Keep the complete artwork and a usable module list in short tablet and mobile windows. */
+  .brand {
+    height: clamp(6rem, calc(16.8dvh * var(--dashboard-density)), 9.875rem);
+  }
+  .brand-lockup {
+    width: 100%;
+    height: 100%;
+  }
+  .sidebar-story {
+    flex-basis: clamp(
+      10rem,
+      calc(26.7dvh * var(--dashboard-density)),
+      15.6875rem
+    );
+    height: clamp(10rem, calc(26.7dvh * var(--dashboard-density)), 15.6875rem);
+  }
+  .sidebar-landscape {
+    width: 100%;
+    /* Keep the strip's intrinsic aspect (no vertical stretch on short windows). */
+    height: auto;
+  }
+}

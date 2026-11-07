@@ -1,0 +1,460 @@
+/* Only the login gate uses these styles; dashboard density is unchanged. */
+:global(.auth-gate):has(> .page) {
+  display: block;
+  min-height: 100dvh;
+  padding: 0;
+  background: var(--canvas, #f1efeb);
+}
+
+.page {
+  --login-navy: #203d54;
+  --login-ink: #132c43;
+  --login-ivory: #f1efeb;
+  --login-navy-rgb: 32 61 84;
+  --login-ink-rgb: 19 44 67;
+  --login-ivory-rgb: 241 239 235;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  padding: 20px 16px;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at 35% 20%, rgb(var(--login-navy-rgb) / 12%), transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 74% 80%, rgb(var(--login-navy-rgb) / 8%), transparent 48%
+    ),
+    var(--login-ivory);
+  color: var(--login-ink);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.page::before,
+.page::after {
+  position: absolute;
+  z-index: -1;
+  width: 390px;
+  height: 390px;
+  border: 1px solid rgb(var(--login-navy-rgb) / 20%);
+  border-radius: 70px;
+  box-shadow:
+    0 0 0 22px rgb(var(--login-navy-rgb) / 3%),
+    0 0 90px rgb(var(--login-navy-rgb) / 8%);
+  content: "";
+  transform: rotate(45deg);
+  pointer-events: none;
+  animation: ambientFloat 18s ease-in-out infinite alternate;
+}
+
+.page::before {
+  top: calc(50% - 380px);
+  right: calc(50% - 100px);
+  background: linear-gradient(
+    145deg,
+    rgb(var(--login-navy-rgb) / 20%),
+    rgb(var(--login-navy-rgb) / 8%) 55%,
+    rgb(var(--login-navy-rgb) / 3%)
+  );
+}
+
+.page::after {
+  bottom: calc(50% - 400px);
+  left: calc(50% - 80px);
+  border-color: rgb(var(--login-navy-rgb) / 18%);
+  background: linear-gradient(
+    145deg,
+    rgb(var(--login-navy-rgb) / 8%),
+    rgb(var(--login-navy-rgb) / 18%)
+  );
+  animation-delay: -9s;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  min-width: 0;
+  padding: 28px 34px 30px;
+  overflow: hidden;
+  border: 1px solid rgb(var(--login-ivory-rgb) / 62%);
+  border-top-color: rgb(var(--login-ivory-rgb) / 95%);
+  border-left-color: rgb(var(--login-ivory-rgb) / 78%);
+  border-radius: 20px;
+  background: var(--login-navy);
+  color: var(--login-ivory);
+  box-shadow:
+    0 30px 85px rgb(var(--login-ink-rgb) / 32%),
+    0 8px 24px rgb(var(--login-ink-rgb) / 15%),
+    0 0 0 5px rgb(var(--login-ivory-rgb) / 3%),
+    inset 0 1px 0 var(--login-ivory);
+  transition: box-shadow 240ms, border-color 240ms;
+  animation: enter 450ms ease both;
+}
+
+.card::before {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 20%;
+  left: 20%;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(
+    90deg,
+    var(--login-ivory),
+    rgb(var(--login-ivory-rgb) / 25%),
+    var(--login-navy),
+    var(--login-ivory)
+  );
+  content: "";
+}
+
+.card::after {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background:
+    linear-gradient(
+      118deg,
+      rgb(var(--login-ivory-rgb) / 12%),
+      rgb(var(--login-ivory-rgb) / 3%) 35%,
+      transparent 55%
+    ),
+    linear-gradient(
+      150deg, transparent 58%, rgb(var(--login-ivory-rgb) / 8%) 59%,
+      transparent 74%
+    );
+  box-shadow:
+    inset 1px 0 0 rgb(var(--login-ivory-rgb) / 45%),
+    inset 0 1px 0 rgb(var(--login-ivory-rgb) / 80%),
+    inset -1px -1px 0 rgb(var(--login-ivory-rgb) / 15%);
+  content: "";
+  pointer-events: none;
+}
+
+.cardContent {
+  position: relative;
+  z-index: 1;
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .card {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--login-navy-rgb) / 94%),
+      rgb(var(--login-navy-rgb) / 86%)
+    );
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+}
+
+.brand img {
+  width: 52px;
+  height: 52px;
+  padding: 4px;
+  border: 1px solid rgb(var(--login-ivory-rgb) / 70%);
+  border-radius: 13px;
+  background: rgb(var(--login-ivory-rgb) / 50%);
+  box-shadow:
+    0 6px 18px rgb(var(--login-navy-rgb) / 8%),
+    inset 0 1px 0 var(--login-ivory);
+}
+
+.brandName {
+  display: block;
+  color: var(--login-ivory);
+  font-family: var(--font-ui);
+  font-size: 26px;
+  letter-spacing: -0.6px;
+  line-height: 1.2;
+}
+
+.brandCompany {
+  display: block;
+  margin-top: 5px;
+  color: rgb(var(--login-ivory-rgb) / 90%);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3.5px;
+}
+
+.formHeader {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.formHeader h1 {
+  margin: 0;
+  color: var(--login-ivory);
+  font-family: var(--font-ui);
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  line-height: 1.25;
+}
+
+.formHeader p {
+  margin: 6px 0 0;
+  color: rgb(var(--login-ivory-rgb) / 90%);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.cardContent form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 23px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.field > label {
+  color: var(--login-ivory);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.inputWrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding-inline: 16px 6px;
+  border: 1px solid rgb(var(--login-ivory-rgb) / 78%);
+  border-radius: 9px;
+  background: linear-gradient(
+    135deg, rgb(var(--login-ivory-rgb) / 94%),
+    rgb(var(--login-ivory-rgb) / 86%)
+  );
+  box-shadow:
+    inset 0 1px 0 rgb(var(--login-ivory-rgb) / 75%),
+    inset 0 -1px 0 rgb(var(--login-ivory-rgb) / 20%),
+    0 3px 10px rgb(var(--login-navy-rgb) / 3%);
+  transition: border-color 180ms, box-shadow 180ms, background 180ms;
+}
+
+.inputWrap > svg {
+  width: 19px;
+  height: 19px;
+  color: rgb(var(--login-navy-rgb) / 75%);
+}
+
+.inputWrap input {
+  width: 100%;
+  min-width: 0;
+  min-height: 50px;
+  padding: 10px 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--login-navy);
+  font-family: var(--font-ui);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.inputWrap input::placeholder {
+  color: rgb(var(--login-ink-rgb) / 80%);
+  opacity: 1;
+}
+
+.inputWrap:focus-within {
+  border-color: var(--login-ivory);
+  background: var(--login-ivory);
+  box-shadow:
+    0 0 0 4px rgb(var(--login-ivory-rgb) / 20%),
+    inset 0 1px 0 var(--login-ivory);
+}
+
+.inputWrap:focus-within > svg {
+  color: var(--login-navy);
+}
+
+.inputWrap input:focus-visible {
+  outline: none;
+}
+
+.inputWrap[data-invalid="true"] {
+  border-color: var(--login-ink);
+}
+
+.passwordToggle {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: rgb(var(--login-navy-rgb) / 80%);
+  font-size: 20px;
+}
+
+.passwordToggle:hover:not(:disabled) {
+  background: rgb(var(--login-navy-rgb) / 8%);
+  color: var(--login-navy);
+}
+
+.passwordToggle:focus-visible,
+.submit:focus-visible {
+  outline: 2px solid var(--login-ivory);
+  outline-offset: 4px;
+}
+
+.passwordToggle:focus-visible {
+  outline-color: var(--login-navy);
+}
+
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  min-height: 52px;
+  margin-top: 3px;
+  padding: 11px 20px;
+  border: 1px solid var(--login-ivory);
+  border-radius: 9px;
+  background:
+    linear-gradient(180deg, rgb(var(--login-navy-rgb) / 6%), transparent 48%),
+    var(--login-ivory);
+  box-shadow:
+    inset 0 1px 0 rgb(var(--login-ivory-rgb) / 40%),
+    0 5px 14px rgb(var(--login-navy-rgb) / 15%);
+  color: var(--login-navy);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  transition: box-shadow 180ms, transform 180ms, opacity 180ms;
+}
+
+.submit svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 180ms;
+}
+
+.submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: var(--login-ivory);
+  box-shadow:
+    0 8px 24px rgb(var(--login-navy-rgb) / 22%),
+    inset 0 1px 0 rgb(var(--login-ivory-rgb) / 50%);
+}
+
+.submit:hover:not(:disabled) svg:not(.spinner) {
+  transform: translateX(4px);
+}
+
+.submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.inputWrap input:disabled,
+.passwordToggle:disabled {
+  cursor: wait;
+}
+
+.banner {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid rgb(var(--login-navy-rgb) / 35%);
+  border-radius: 7px;
+  background: rgb(var(--login-ivory-rgb) / 65%);
+  color: var(--login-ink);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.fieldError,
+.capsLock {
+  margin: 0;
+  color: var(--login-ivory);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.capsLock {
+  color: var(--login-ivory);
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ambientFloat {
+  from { transform: rotate(45deg) translateY(0); }
+  to { transform: rotate(49deg) translateY(14px); }
+}
+
+@media (max-width: 520px) {
+  .page { padding: 16px; }
+  .card { padding: 26px 24px; border-radius: 16px; }
+}
+
+@media (max-width: 360px) {
+  .page { padding: 12px; }
+  .card { padding-inline: 18px; }
+  .inputWrap { gap: 9px; padding-left: 12px; }
+  .inputWrap input { font-size: 16px; }
+}
+
+@media (max-height: 560px) {
+  .page { padding-block: 12px; }
+  .card { padding-block: 20px; }
+  .brand img { width: 44px; height: 44px; }
+  .formHeader { margin-top: 16px; }
+  .formHeader p { display: none; }
+  .cardContent form { margin-top: 18px; gap: 14px; }
+}
+
+@media (max-height: 430px) {
+  .page { padding-block: 8px; }
+  .card { padding-block: 16px; }
+  .formHeader { margin-top: 12px; }
+  .formHeader h1 { font-size: 28px; }
+  .cardContent form { margin-top: 14px; gap: 10px; }
+  .field { gap: 4px; }
+  .inputWrap { min-height: 46px; }
+  .inputWrap input { min-height: 44px; padding-block: 8px; }
+  .submit { min-height: 46px; margin-top: 0; padding-block: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .spinner, .page::before, .page::after { animation: none; }
+  .card, .inputWrap, .submit, .submit svg { transition: none; }
+  .submit:hover:not(:disabled),
+  .submit:hover:not(:disabled) svg:not(.spinner) { transform: none; }
+}

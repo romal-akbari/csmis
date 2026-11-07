@@ -1,0 +1,15 @@
+node_modules/
+.next/
+.next-*/
+.next-e2e/
+.next-reset-e2e/
+test-results/
+playwright-report/
+reset-playwright-report/
+out/
+coverage/
+*.tsbuildinfo
+.env*.local
+next-env.d.ts
+.verification/
+*.log

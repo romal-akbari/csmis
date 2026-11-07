@@ -1,0 +1,240 @@
+/* Keep the established light palette; map component surfaces into the dark theme. */
+.screen,
+.dialog {
+  --form-control-border: #bec7cc;
+  --form-control-hover: #e1e6e8;
+  --form-input-border: #b9c3c9;
+  --form-table-heading: #e4e2db;
+  --form-dialog-surface: #f1efeb;
+  --form-dialog-shadow: #132c4340;
+}
+:global(html[data-theme="dark"]) .screen,
+:global(html[data-theme="dark"]) .dialog {
+  --form-control-border: var(--border-strong);
+  --form-control-hover: var(--surface-hover);
+  --form-input-border: var(--border-strong);
+  --form-table-heading: var(--surface-soft);
+  --form-dialog-surface: var(--surface-raised);
+  --form-dialog-shadow: #00000066;
+  --form-primary-hover: color-mix(in srgb, var(--accent-fill), white 10%);
+}
+
+.screen {
+  margin: 0 auto;
+  padding: 28px;
+  max-width: 1440px;
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.screen h1 {
+  font-size: 19px;
+  font-weight: 600;
+}
+.screen h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+.screen p {
+  margin: 10px 0 18px;
+}
+.headingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.screen button,
+.dialog button {
+  min-height: 42px;
+  padding: 8px 14px;
+  border: 1px solid var(--form-control-border);
+  border-radius: 6px;
+  background: var(--surface-raised);
+  color: var(--ink);
+  line-height: 1.4;
+  font-family: inherit;
+}
+.screen button {
+  font-size: 12px;
+}
+.dialog button {
+  font-size: 14px;
+}
+.screen button:hover:not(:disabled),
+.dialog button:hover:not(:disabled) {
+  background: var(--form-control-hover);
+}
+.screen button:disabled,
+.dialog button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.screen .primary,
+.dialog .primary,
+.tabs button[aria-current="page"] {
+  background: var(--accent-fill);
+  color: var(--on-accent);
+  border-color: var(--accent-fill);
+}
+.screen .primary:hover:not(:disabled),
+.dialog .primary:hover:not(:disabled) {
+  background: var(--form-primary-hover, var(--text-primary));
+}
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 24px 0;
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 18px 0;
+}
+.screen input,
+.screen select,
+.dialog input,
+.dialog select,
+.dialog textarea {
+  min-width: 0;
+  min-height: 44px;
+  padding: 9px 11px;
+  border: 1px solid var(--form-input-border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 16px;
+}
+.dialog textarea {
+  resize: vertical;
+}
+.screen :is(input, select, button):focus-visible,
+.dialog :is(input, select, textarea, button):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+.tableWrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--data-table-font-size);
+}
+.tableWrap th {
+  background: var(--form-table-heading);
+  text-align: start;
+  font-size: var(--data-table-font-size);
+}
+.tableWrap td,
+.tableWrap th {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--form-table-heading);
+  vertical-align: top;
+}
+.tableWrap td {
+  overflow-wrap: anywhere;
+  max-width: 240px;
+}
+.rowActions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  min-width: 130px;
+}
+.pager,
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.notice,
+.error {
+  padding: 13px 16px;
+  border: 1px solid var(--info-border);
+  border-radius: 6px;
+  background: var(--info-surface);
+}
+.error,
+.fieldError {
+  color: var(--danger-text);
+}
+.error {
+  background: var(--danger-surface);
+  border-color: var(--danger-border);
+}
+.dialog {
+  width: min(680px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 25px;
+  overflow-y: auto;
+  border: 1px solid var(--form-control-border);
+  border-radius: 12px;
+  background: var(--form-dialog-surface);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: 0 20px 70px var(--form-dialog-shadow);
+}
+.dialog::backdrop {
+  background: var(--dialog-backdrop);
+}
+.dialog h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+.dialog p {
+  margin: 9px 0 20px;
+}
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.field label {
+  font-weight: 500;
+}
+.wide {
+  grid-column: 1 / -1;
+}
+.fieldError,
+.hint {
+  font-size: 13px;
+}
+@media (max-width: 700px) {
+  .screen {
+    padding: 20px 14px;
+  }
+  .fields {
+    grid-template-columns: 1fr;
+  }
+  .dialog {
+    padding: 20px;
+  }
+  .filters input {
+    width: 100%;
+  }
+  .pager {
+    justify-content: center;
+  }
+}

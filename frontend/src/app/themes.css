@@ -1,0 +1,164 @@
+/* Semantic palette shared by every implemented dashboard workspace. */
+:root {
+  color-scheme: light;
+  --surface: #fffefa;
+  --surface-raised: #fcfbf8;
+  --surface-soft: #f4f2ec;
+  --surface-muted: #e5e3dc;
+  --surface-hover: #e5e3dc;
+  --surface-input: #fffefa;
+  --text-primary: #132c43;
+  --text-secondary: #596d79;
+  --text-muted: #8190a4;
+  --border: #d5d6d0;
+  --border-strong: #aab8c1;
+  --accent: #203d54;
+  --accent-fill: #203d54;
+  --on-accent: #f1efeb;
+  --focus: #507792;
+  --danger-text: #8b2929;
+  --danger-surface: #fff3ef;
+  --danger-border: #c99183;
+  --success-surface: #e8eeeb;
+  --success-border: #c3d0ca;
+  --success-text: #285744;
+  --info-surface: #e5eaed;
+  --info-border: #9cabb6;
+  --dialog-backdrop: #132c4370;
+  --panel-expanded: #e4ebe7;
+  --panel-expanded-gradient: linear-gradient(120deg, #dfe8e7, #edf0e9);
+  --row-expanded: #e9eeeb;
+  --panel-expanded-border: #203d5433;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #e8eeef;
+  --muted: #9dafbb;
+  --canvas: #111e2a;
+  --surface: #192b3a;
+  --surface-raised: #1e3344;
+  --surface-soft: #233a4b;
+  --surface-muted: #2a4253;
+  --surface-hover: #304c60;
+  --surface-input: #142736;
+  --text-primary: #e8eeef;
+  --text-secondary: #b8c9d2;
+  --text-muted: #9dafbb;
+  --border: #375061;
+  --border-strong: #607d90;
+  --accent: #b8d5e7;
+  --accent-fill: #335d78;
+  --on-accent: #f7f5ef;
+  --focus: #a4cbdf;
+  --danger-text: #f3b2a9;
+  --danger-surface: #472f34;
+  --danger-border: #9f6260;
+  --success-surface: #233e3a;
+  --success-border: #4d766b;
+  --success-text: #b3dace;
+  --info-surface: #253f51;
+  --info-border: #5e7c90;
+  --dialog-backdrop: #07111dcc;
+  --panel-expanded: #263f50;
+  --panel-expanded-gradient: linear-gradient(120deg, #284657, #24394a);
+  --row-expanded: #233e50;
+  --panel-expanded-border: #65899c;
+}
+
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid #203d5426;
+  border-radius: 10px;
+  background: #f5f2ec;
+  color: #203d54;
+}
+.theme-toggle svg { width: 17px; height: 17px; stroke-width: 1.8; }
+.theme-toggle:hover { background: #e8e4db; border-color: #203d5466; }
+.theme-toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+/* Hidden variants never override the sidebar's collapsed visibility rules. */
+html[data-theme="dark"] .artwork[data-artwork-theme="light"],
+html:not([data-theme="dark"]) .artwork[data-artwork-theme="dark"] { display: none; }
+
+.brand .artwork[data-custom-branding="true"],
+.footer-signature[data-custom-branding="true"] { object-fit: contain; }
+.sidebar .artwork[data-custom-branding="true"],
+html[data-theme="dark"] .sidebar .artwork[data-custom-branding="true"],
+.footer .artwork[data-custom-branding="true"],
+html[data-theme="dark"] .footer .artwork[data-custom-branding="true"] {
+  filter: none;
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+
+/* Shell and top-layer menus use the same palette as the workspaces. */
+html[data-theme="dark"] body,
+html[data-theme="dark"] .main-content { background: var(--canvas); color: var(--text-primary); }
+html[data-theme="dark"] .topbar { background: #172a39; color: var(--text-primary); border-bottom: 1px solid var(--border); }
+html[data-theme="dark"] .theme-toggle,
+html[data-theme="dark"] .language-dropdown { background: var(--surface-raised); color: var(--accent); border-color: var(--border-strong); box-shadow: inset 0 1px 0 #ffffff0a; }
+html[data-theme="dark"] .theme-toggle:hover { background: var(--surface-hover); }
+html[data-theme="dark"] .language-select option { background: var(--surface); color: var(--text-primary); }
+html[data-theme="dark"] .language-dropdown:focus-within { border-color: var(--focus); box-shadow: 0 0 0 3px #a4cbdf22; }
+html[data-theme="dark"] .header-divider { background: var(--border); }
+html[data-theme="dark"] .profile-info small,
+html[data-theme="dark"] .topbar .profile-popover > span,
+html[data-theme="dark"] .topbar .profile-popover > p { color: var(--text-secondary); }
+html[data-theme="dark"] .popover { background: var(--surface-raised); border-color: var(--border); color: var(--text-primary); box-shadow: 0 16px 44px #0000004d; }
+html[data-theme="dark"] .topbar .profile-popover > button:hover { background: var(--surface-hover); }
+html[data-theme="dark"] .sidebar-toggle,
+html[data-theme="dark"] .mobile-menu,
+html[data-theme="dark"] .mobile-close { color: var(--accent); }
+html[data-theme="dark"] .sidebar-toggle:hover,
+html[data-theme="dark"] .icon-button:hover { background: var(--surface-hover); }
+html[data-theme="dark"] .language-error { color: var(--danger-text); background: var(--danger-surface); border-color: var(--danger-border); }
+html[data-theme="dark"] .skip-link { color: var(--text-primary); background: var(--surface); }
+
+html[data-theme="dark"] .sidebar { background: linear-gradient(112deg, #1d3445, #192d3d 65%, #223a49); border-color: var(--border); }
+html[data-theme="dark"] .nav-item { color: var(--text-secondary); }
+html[data-theme="dark"] .nav-item > svg,
+html[data-theme="dark"] .sidebar .nav-item > .sidebar-dashboard-icon { color: var(--accent); }
+html[data-theme="dark"] .sidebar .reference-icon { filter: brightness(0) invert(0.88); }
+html[data-theme="dark"] .nav-item:hover { background: var(--surface-hover); color: var(--text-primary); }
+html[data-theme="dark"] .nav-item.active { color: var(--on-accent); background: linear-gradient(110deg, #3a6179, #2f526b); box-shadow: inset 0 0 0 1px #84a9bc40; }
+html[data-theme="dark"] .nav-item.active > svg { color: var(--on-accent); }
+/* Give blended artwork an opaque backdrop inside its stacking context. */
+html[data-theme="dark"] .brand { background: linear-gradient(112deg, #1d3445, #192d3d 65%, #223a49); }
+html[data-theme="dark"] .brand-lockup,
+html[data-theme="dark"] .sidebar-compact-brand { filter: invert(1) grayscale(1) contrast(1.25); mix-blend-mode: screen; }
+html[data-theme="dark"] .sidebar-top-ornament,
+html[data-theme="dark"] .sidebar-bottom-ornament { filter: invert(1) grayscale(1); mix-blend-mode: screen; opacity: 0.15; }
+html[data-theme="dark"] .sidebar-landscape { mix-blend-mode: normal; filter: none; }
+html[data-theme="dark"] .sidebar-flyout { background: linear-gradient(112deg, #213a4c, #1b3041); color: var(--text-primary); border-color: var(--border-strong); box-shadow: 0 16px 36px #0000004d, inset 0 0 0 1px #ffffff08; }
+html[data-theme="dark"] .sidebar-flyout-title { border-color: var(--border); }
+html[data-theme="dark"] .sidebar-flyout-title::before { background: var(--accent); }
+html[data-theme="dark"] .sidebar-flyout-item { background: #ffffff05; box-shadow: inset 0 0 0 1px #ffffff08; }
+html[data-theme="dark"] .sidebar-flyout-item:hover,
+html[data-theme="dark"] .sidebar-flyout-item:focus-visible { background: var(--surface-hover); box-shadow: inset 0 0 0 1px var(--border-strong); }
+html[data-theme="dark"] .sidebar-flyout-item[aria-current="page"] { background: var(--accent-fill); color: var(--on-accent); }
+
+html[data-theme="dark"] table { color: var(--text-primary); }
+html[data-theme="dark"] th { color: var(--text-secondary); background: var(--surface-soft); }
+html[data-theme="dark"] tbody tr:nth-child(even) { background: #ffffff03; }
+html[data-theme="dark"] tbody tr:hover { background: #ffffff06; }
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder { color: var(--text-muted); opacity: 1; }
+html[data-theme="dark"] :focus-visible { outline-color: var(--focus); }
+html[data-theme="dark"] .footer { color: var(--text-secondary); }
+html[data-theme="dark"] .footer-trust { color: var(--text-secondary); }
+html[data-theme="dark"] .footer-trust > svg { color: var(--accent); }
+html[data-theme="dark"] .footer-company { background: var(--canvas); }
+html[data-theme="dark"] .footer-wordmark,
+html[data-theme="dark"] .footer-flourish > .artwork { filter: invert(1) grayscale(1) contrast(1.25); mix-blend-mode: screen; }
+html[data-theme="dark"] .footer-landscape > .artwork { filter: invert(1) grayscale(1); mix-blend-mode: screen; opacity: 0.45; }
+
+@media (max-width: 600px) {
+  .topbar .header-actions { gap: 10px; }
+  .theme-toggle { width: 34px; height: 36px; }
+}

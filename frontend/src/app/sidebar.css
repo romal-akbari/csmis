@@ -1,0 +1,306 @@
+/* Keep the original branding and artwork; desktop navigation can become a rail. */
+@property --sidebar-inline-size {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 296px;
+}
+
+.sidebar-compact-brand,
+.sidebar-toggle {
+  display: none;
+}
+
+.sidebar .nav-item {
+  font-size: 13px;
+}
+
+.sidebar .sidebar-nav-label[lang="fa"] {
+  font-size: 14px;
+}
+
+.sidebar-flyout[lang="fa"] {
+  font-size: 14px;
+}
+
+.sidebar-flyout[lang="fa"] .sidebar-flyout-title {
+  font-size: 14px;
+}
+
+.sidebar .nav-item.active {
+  min-height: max(32px, 2.125rem);
+}
+
+.sidebar .nav-item > .sidebar-dashboard-icon {
+  color: var(--navy);
+  stroke-width: 2.2;
+}
+
+.sidebar .nav-item.active > .sidebar-dashboard-icon {
+  color: #f1efeb;
+}
+
+/* Native popovers live in the top layer; the original sidebar sizing stays intact. */
+.sidebar .nav-item.has-submenu {
+  position: relative;
+}
+
+.sidebar .has-submenu > .sidebar-submenu-chevron {
+  position: absolute;
+  inset-inline-end: 5px;
+  width: 12px;
+  height: 12px;
+  transform: none;
+  opacity: 0.7;
+}
+
+[dir="rtl"] .sidebar .has-submenu > .sidebar-submenu-chevron {
+  transform: rotate(180deg);
+}
+
+.sidebar-flyout {
+  position: fixed;
+  inset: auto;
+  width: min(260px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  margin: 0;
+  padding: 8px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid rgb(32 61 84 / 20%);
+  border-radius: 12px;
+  background: linear-gradient(112deg, #e8e4db, #dedad1 65%, #e9e6df);
+  color: var(--navy);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  box-shadow:
+    0 16px 36px -10px rgb(19 44 67 / 24%),
+    0 3px 9px rgb(19 44 67 / 7%),
+    inset 0 0 0 1px rgb(241 239 235 / 70%);
+}
+
+.sidebar-flyout:popover-open {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  animation: sidebar-flyout-enter 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sidebar-flyout-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 4px 6px;
+  padding: 8px 8px 11px;
+  border-bottom: 1px solid rgb(32 61 84 / 13%);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.sidebar-flyout-title::before {
+  content: "";
+  flex: 0 0 3px;
+  height: 12px;
+  border-radius: 2px;
+  background: var(--navy);
+}
+
+.sidebar-flyout-item {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  min-height: 40px;
+  padding: 9px 12px;
+  padding-inline-end: 30px;
+  border: 0;
+  border-radius: 8px;
+  background: rgb(241 239 235 / 32%);
+  color: inherit;
+  text-align: start;
+  font: inherit;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  box-shadow: inset 0 0 0 1px rgb(32 61 84 / 4%);
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.sidebar-flyout-item::after {
+  content: "";
+  position: absolute;
+  inset-inline-end: 14px;
+  top: calc(50% - 3px);
+  width: 6px;
+  height: 6px;
+  border-top: 1px solid currentColor;
+  border-right: 1px solid currentColor;
+  opacity: 0.35;
+  transform: rotate(45deg);
+  transition: opacity 160ms ease;
+  pointer-events: none;
+}
+
+.sidebar-flyout[dir="rtl"] .sidebar-flyout-item::after {
+  transform: rotate(-135deg);
+}
+
+.sidebar-flyout-item:hover,
+.sidebar-flyout-item:focus-visible {
+  background: rgb(241 239 235 / 90%);
+  box-shadow:
+    inset 0 0 0 1px rgb(32 61 84 / 10%),
+    0 2px 4px rgb(19 44 67 / 4%);
+}
+
+.sidebar-flyout-item:hover::after,
+.sidebar-flyout-item:focus-visible::after,
+.sidebar-flyout-item[aria-current="page"]::after {
+  opacity: 0.85;
+}
+
+.sidebar-flyout-item:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: -2px;
+}
+
+.sidebar-flyout-item[aria-current="page"] {
+  background: #203d54;
+  color: #f1efeb;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgb(19 44 67 / 12%);
+}
+
+.sidebar-flyout-item[aria-current="page"]:hover {
+  background: #2e4c63;
+}
+
+.sidebar-flyout-item[aria-current="page"]:focus-visible {
+  outline-color: #f1efeb;
+  outline-offset: -3px;
+}
+
+@keyframes sidebar-flyout-enter {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 801px) {
+  .dashboard-shell {
+    --sidebar-inline-size: 18.5rem;
+    --sidebar-width: var(--sidebar-inline-size);
+    transition: --sidebar-inline-size 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .sidebar-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    color: var(--navy);
+    background: transparent;
+  }
+
+  .sidebar-toggle svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 1.8;
+  }
+
+  .sidebar-toggle:hover {
+    background: #e8e4db;
+  }
+
+  .sidebar-toggle:active {
+    transform: scale(0.94);
+  }
+
+  .sidebar-toggle:focus-visible {
+    outline-offset: 3px;
+  }
+
+  .dashboard-shell[data-sidebar-collapsed="true"] {
+    --sidebar-inline-size: 76px;
+  }
+
+  [data-sidebar-collapsed="true"] .sidebar .brand {
+    height: 84px;
+    justify-content: flex-start;
+    padding-block-start: 16px;
+  }
+
+  [data-sidebar-collapsed="true"] .brand-lockup {
+    display: none;
+  }
+
+  [data-sidebar-collapsed="true"] .sidebar-compact-brand {
+    display: block;
+    width: 44px;
+    height: 44px;
+  }
+
+  [data-sidebar-collapsed="true"] .sidebar .navigation {
+    flex: 1 1 auto;
+    justify-content: flex-start;
+    gap: 7px;
+    margin-bottom: 0;
+    padding: 2px 12px 16px;
+    scrollbar-width: thin;
+    overscroll-behavior-y: contain;
+  }
+
+  [data-sidebar-collapsed="true"] .sidebar .nav-item {
+    display: flex;
+    flex: 0 0 44px;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0;
+    gap: 0;
+    border-radius: 10px;
+  }
+
+  [data-sidebar-collapsed="true"] .sidebar .nav-item > svg {
+    width: 24px !important;
+    height: 25px !important;
+    transform: none !important;
+  }
+
+  [data-sidebar-collapsed="true"]
+    .sidebar
+    .has-submenu
+    > .sidebar-submenu-chevron {
+    display: none;
+  }
+
+  [data-sidebar-collapsed="true"] .sidebar-nav-label,
+  [data-sidebar-collapsed="true"] .sidebar-story,
+  [data-sidebar-collapsed="true"] .sidebar-bottom-ornament {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-flyout:popover-open {
+    animation: none;
+  }
+
+  .sidebar-flyout-item,
+  .sidebar-flyout-item::after {
+    transition: none;
+  }
+  .dashboard-shell,
+  .sidebar-toggle {
+    transition: none;
+  }
+}

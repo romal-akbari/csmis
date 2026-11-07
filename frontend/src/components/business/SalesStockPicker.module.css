@@ -1,0 +1,19 @@
+.search { display:flex; align-items:center; gap:8px; }
+.search input { flex:1; min-width:0; }
+.search button { display:inline-flex; align-items:center; gap:6px; flex-shrink:0; }
+.stockOption { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; }
+.design { min-width:0; }
+.availableBadge,.quantityHint { display:inline-flex; align-items:center; gap:7px; border:1px solid var(--info-border); border-radius:999px; background:var(--info-surface); color:var(--accent); white-space:nowrap; }
+.availableBadge { padding:4px 10px; font-size:.92em; }
+.availableBadge strong { font-size:1.12em; }
+.quantityLabel { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.quantityHint { padding:2px 8px; font-size:.82em; }
+.prices { grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:12px; }
+@media(max-width:650px) {
+  .search { flex-wrap:wrap; }
+  .search input { flex-basis:100%; }
+  .stockOption { grid-template-columns:auto minmax(0,1fr); }
+  .availableBadge { grid-column:2; justify-self:start; }
+  .quantityLabel { align-items:flex-start; flex-direction:column; }
+  .prices { grid-template-columns:1fr; }
+}
