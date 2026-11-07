@@ -244,7 +244,7 @@ class ManagerProductionApiTest extends ApiTestCase
         $this->productionPost('orders/'.$id.'/pay', $this->payment('100', 'advance'))->assertCreated();
         $this->accept($delivery['washing_order_id']);
         $sale['items'][0]['expected_sequence'] = 4;
-        $postSale($sale)->assertUnprocessable()->assertJsonValidationErrors('items');
+        $postSale($sale)->assertUnprocessable()->assertJsonValidationErrors('items.0');
         $visit = DB::table('washing_order_items')->where('washing_order_id', $delivery['washing_order_id'])->value('id');
         $this->postJson('/api/washing/bills', ['expense_no' => 'MANAGER-WASH-COST', 'invoice_no' => 'MANAGER-WASH-INVOICE',
             'branch_id' => $this->branch, 'facility_id' => $this->facility, 'currency_id' => $this->currency, 'rate_to_base' => '1', 'billed_on' => '2026-01-08',
