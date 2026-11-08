@@ -218,18 +218,6 @@ jobs:
           printf 'Temporary deployment bootstrap.\n' > deploy-artifacts/ftp-bootstrap/backend/.deploy-bootstrap
           printf 'Temporary deployment bootstrap.\n' > deploy-artifacts/ftp-bootstrap/frontend/.deploy-bootstrap
 
-      - name: Initialize API FTP sync state
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
-        with:
-          server: ${{ secrets.CPANEL_FTP_SERVER }}
-          username: ${{ secrets.CPANEL_FTP_USERNAME }}
-          password: ${{ secrets.CPANEL_FTP_PASSWORD }}
-          protocol: ftps
-          port: 21
-          local-dir: deploy-artifacts/ftp-bootstrap/backend/
-          server-dir: backend/
-          dangerous-clean-slate: false
-
       - name: Deploy Laravel API over FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
