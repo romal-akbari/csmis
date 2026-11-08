@@ -257,6 +257,7 @@ jobs:
           set ftp:prefer-epsv false
           set ftp:passive-mode true
           set ssl:verify-certificate true
+          set ssl:verify-certificate/38:7F:C2:99:DF:89:48:5C:E3:EB:DA:9B:20:FE:72:22:C4:2E:1C:AF no
           set net:max-retries 2
           set net:timeout 30
           mkdir -p frontend
