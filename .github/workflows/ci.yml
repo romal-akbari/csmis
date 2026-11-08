@@ -249,20 +249,20 @@ jobs:
           CPANEL_FTP_USERNAME: ${{ secrets.CPANEL_FTP_USERNAME }}
           LFTP_PASSWORD: ${{ secrets.CPANEL_FTP_PASSWORD }}
         run: |
-          lftp --env-password -c "
-            set ftp:ssl-force true;
-            set ftp:ssl-protect-data true;
-            set ftp:ssl-protect-list true;
-            set ftp:prefer-epsv false;
-            set ftp:passive-mode true;
-            set ssl:verify-certificate true;
-            set net:max-retries 2;
-            set net:timeout 30;
-            open -u \"$CPANEL_FTP_USERNAME\" \"ftp://$CPANEL_FTP_SERVER\";
-            mkdir -p frontend;
-            mirror -R --only-newer --parallel=1 --verbose=1 --exclude-glob '.env*' --exclude-glob '*.sql' deploy-artifacts/frontend/ frontend/;
-            bye
-          "
+          lftp --env-password -u "$CPANEL_FTP_USERNAME" "ftp://$CPANEL_FTP_SERVER" <<'LFTP'
+          set cmd:fail-exit true
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set ftp:ssl-protect-list true
+          set ftp:prefer-epsv false
+          set ftp:passive-mode true
+          set ssl:verify-certificate true
+          set net:max-retries 2
+          set net:timeout 30
+          mkdir -p frontend
+          mirror -R --only-newer --parallel=1 --verbose=1 --exclude-glob '.env*' --exclude-glob '*.sql' deploy-artifacts/frontend/ frontend/
+          bye
+          LFTP
 
       - name: Verify live API health
         run: curl --fail --silent --show-error --retry 12 --retry-delay 5 https://api.sakhizadacarpet.com/api/health
