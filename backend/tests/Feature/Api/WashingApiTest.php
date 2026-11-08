@@ -269,7 +269,7 @@ class WashingApiTest extends HistoricalApiTestCase
         $this->getJson('/api/washing/orders/'.$nextOrder)->assertOk()
             ->assertJsonPath('data.items.0.stock_status', 'at_washing')
             ->assertJsonPath('data.items.0.location_name', 'Other private custody')
-            ->assertJsonPath('data.items.0.current_sequence', '6');
+            ->assertJsonPath('data.items.0.current_sequence', 6);
     }
 
     public function test_cost_is_allocated_once_bill_does_not_move_cash_payment_retry_reversal_and_void_reconcile(): void
