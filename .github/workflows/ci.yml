@@ -249,7 +249,7 @@ jobs:
           CPANEL_FTP_USERNAME: ${{ secrets.CPANEL_FTP_USERNAME }}
           LFTP_PASSWORD: ${{ secrets.CPANEL_FTP_PASSWORD }}
         run: |
-          lftp --env-password --user "$CPANEL_FTP_USERNAME" --execute "
+          lftp --env-password -c "
             set ftp:ssl-force true;
             set ftp:ssl-protect-data true;
             set ftp:ssl-protect-list true;
@@ -258,10 +258,11 @@ jobs:
             set ssl:verify-certificate true;
             set net:max-retries 2;
             set net:timeout 30;
+            open -u \"$CPANEL_FTP_USERNAME\" \"ftp://$CPANEL_FTP_SERVER\";
             mkdir -p frontend;
             mirror -R --only-newer --parallel=1 --verbose=1 --exclude-glob '.env*' --exclude-glob '*.sql' deploy-artifacts/frontend/ frontend/;
             bye
-          " "ftp://$CPANEL_FTP_SERVER"
+          "
 
       - name: Verify live API health
         run: curl --fail --silent --show-error --retry 12 --retry-delay 5 https://api.sakhizadacarpet.com/api/health
