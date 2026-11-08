@@ -97,7 +97,7 @@ class InventoryApiTest extends HistoricalApiTestCase
         $transfer = $this->postCommand('transfers', ['transfer_no' => 'INV-T1', 'from_location_id' => $this->location,
             'to_location_id' => $this->destination, 'transferred_on' => '2026-01-04',
             'items' => [['carpet_id' => $this->carpets[0], 'expected_sequence' => 2]]])->assertCreated()->json('data.id');
-        $this->getJson('/api/inventory/carpets/'.$this->carpets[0])->assertOk()->assertJsonPath('data.sequence_no', '3')
+        $this->getJson('/api/inventory/carpets/'.$this->carpets[0])->assertOk()->assertJsonPath('data.sequence_no', 3)
             ->assertJsonPath('data.location_id', $this->destination)->assertJsonCount(3, 'data.events');
         $this->getJson('/api/inventory/receipts')->assertOk()->assertJsonPath('total', 1);
         $this->getJson('/api/inventory/transfers/'.$transfer)->assertOk()->assertJsonCount(1, 'data.items');

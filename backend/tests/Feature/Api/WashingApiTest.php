@@ -246,7 +246,7 @@ class WashingApiTest extends HistoricalApiTestCase
         $nextOrder = $this->command('dispatch', $next)->assertCreated()->json('data.id');
         $this->getJson('/api/washing/orders/'.$originalOrder)->assertOk()
             ->assertJsonPath('data.items.0.location_name', 'Other private custody')
-            ->assertJsonPath('data.items.0.current_sequence', '6');
+            ->assertJsonPath('data.items.0.current_sequence', 6);
 
         foreach ([$this->roleUser('Washing Facility User', null, $this->facility), $this->roleUser('Branch Manager', $this->branch)] as $actor) {
             Sanctum::actingAs($actor);
