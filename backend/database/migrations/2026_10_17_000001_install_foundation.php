@@ -83,6 +83,13 @@ return new class extends Migration
             $table->foreign('reversal_of_id')->references('id')
                 ->on('account_transactions')->restrictOnDelete();
         });
+        // Ledger entries keep their creator for auditability. The baseline schema
+        // used SET NULL here, which conflicts with the non-null ledger invariant
+        // below on MySQL. Replace it with RESTRICT before adding that constraint.
+        DB::statement('ALTER TABLE account_transactions DROP FOREIGN KEY fk_acctx_creator');
+        Schema::table('account_transactions', function (Blueprint $table) {
+            $table->foreign('created_by')->references('id')->on('users')->restrictOnDelete();
+        });
         DB::statement('ALTER TABLE account_transactions MODIFY amount DECIMAL(18,2) NOT NULL');
         DB::statement('ALTER TABLE account_transactions ADD CONSTRAINT ledger_phase_one '
             .'CHECK (idempotency_key IS NOT NULL AND request_hash IS NOT NULL '

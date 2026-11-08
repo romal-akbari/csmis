@@ -25,8 +25,21 @@ echo Artisan::output();
 if ($exit !== 0) {
     exit($exit);
 }
-Artisan::call('db:seed', [
+$expected = array_map(
+    static fn (string $path): string => basename($path, '.php'),
+    glob(database_path('migrations/*.php')) ?: [],
+);
+$applied = DB::table('migrations')->pluck('migration')->all();
+$pending = array_values(array_diff($expected, $applied));
+if ($pending !== []) {
+    fwrite(STDERR, 'Test schema migration incomplete: '.implode(', ', $pending).PHP_EOL);
+    exit(1);
+}
+$exit = Artisan::call('db:seed', [
     '--class' => FoundationSeeder::class, '--force' => true,
 ]);
 echo Artisan::output();
+if ($exit !== 0) {
+    exit($exit);
+}
 echo 'Isolated database ready: '.$database.PHP_EOL;
