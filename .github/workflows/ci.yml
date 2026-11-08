@@ -169,8 +169,8 @@ jobs:
             --exclude='.env.*' \
             --exclude='node_modules/' \
             --exclude='tests/' \
-            --exclude='database/*.sql' \
-            --exclude='database/*.sqlite*' \
+            --exclude='*.sql' \
+            --exclude='*.sqlite*' \
             --exclude='storage/**' \
             --exclude='public/storage/' \
             ./ "$GITHUB_WORKSPACE/deploy-artifacts/backend/"
