@@ -253,6 +253,9 @@ jobs:
             **/*.sqlite3
           dangerous-clean-slate: false
 
+      - name: Allow the FTPS session to close
+        run: sleep 15
+
       - name: Initialize frontend FTP sync state
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
