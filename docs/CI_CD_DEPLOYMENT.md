@@ -24,15 +24,16 @@ be enabled.
 ## Automated checks and deployment
 
 `.github/workflows/ci.yml` runs the frontend checks, Laravel tests against an
-isolated MySQL service, and production builds. On `main`, it creates deploy
-artifacts only after the repository variable `CPANEL_DEPLOY_ENABLED` is set to
-`true`. The deploy job sends the standalone Next.js bundle and Laravel files to
-the separate `frontend/` and `backend/` directories using FTPS on port 21, then
-checks the public API health route and app response. It excludes environment
-files, SQL dumps, SQLite files, and Laravel runtime storage.
+isolated MySQL service, and the production frontend build. On `main`, the deploy
+job runs only after the repository variable `CPANEL_DEPLOY_ENABLED` is set to
+`true`. It uploads the standalone Next.js bundle to the `frontend/` directory
+using FTPS on port 21, restarts the Node.js app, and checks the public API
+health route and frontend response. It does not package or upload Laravel
+files, environment files, database dumps, or SQLite files.
 
-Create a directory-scoped cPanel FTP account whose home is
-`/home/sakhizada/apps/csms`, then add these GitHub repository secrets:
+Create a directory-scoped cPanel FTP account whose home is exactly
+`/home/sakhizada/apps/csms`. The workflow uploads to `backend/` and `frontend/`
+relative to that FTP home. Then add these GitHub repository secrets:
 
 - `CPANEL_FTP_SERVER` — the cPanel FTP hostname
 - `CPANEL_FTP_USERNAME` — the directory-scoped FTP account
@@ -61,8 +62,8 @@ the next successful push to `main` (or a manual run on `main`).
    with the database connection, a generated `APP_KEY`, `APP_ENV=production`,
    `APP_DEBUG=false`, and `APP_URL=https://api.sakhizadacarpet.com`.
 4. Create the Laravel runtime directories and link its public storage from the
-   cPanel Terminal. Run `php artisan migrate --force` against the new empty
-   schema, then seed the administrator and role data using a strong
+   cPanel Terminal. Run `/usr/local/bin/php artisan migrate --force` against the
+   new empty schema, then seed the administrator and role data using a strong
    `FOUNDATION_ADMIN_PASSWORD`. Remove that temporary seed variable after the
    seed completes. Do not create business test records in production.
 5. Confirm HTTPS certificates are active for both subdomains, create the
@@ -79,7 +80,19 @@ must not be committed or sent through chat.
 The FTPS job deploys files and restarts the Node.js app by uploading
 `frontend/tmp/restart.txt`. It cannot run Laravel CLI commands. Until a
 restricted SSH deployment path is available, apply each new Laravel migration
-from the cPanel Terminal with `php artisan migrate --force` after deployment.
+from the cPanel Terminal with `/usr/local/bin/php artisan migrate --force` after
+deployment.
+The Laravel `vendor/` directory is intentionally excluded from FTPS uploads.
+Install it in the private backend directory with:
+
+```sh
+cd /home/sakhizada/apps/csms/backend
+/usr/local/bin/php composer.phar install --no-dev --prefer-dist --no-interaction --optimize-autoloader
+```
+
+Repeat that command after a deployment changes `composer.json` or
+`composer.lock`; otherwise the existing server dependencies are preserved.
+
 The workflow intentionally does not import `carpet_sales.sql`, seed business
 records, or run migrations against an unknown database.
 
